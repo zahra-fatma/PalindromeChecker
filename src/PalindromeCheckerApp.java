@@ -1,76 +1,39 @@
+import java.util.Scanner;
+
 public class PalindromeCheckerApp {
 
-    
-    static class Node {
-        char data;
-        Node next;
+   
+    public static boolean isPalindrome(String word, int start, int end) {
 
-        Node(char data) {
-            this.data = data;
-            this.next = null;
+       
+        if (start >= end) {
+            return true;
         }
+
+       
+        if (word.charAt(start) != word.charAt(end)) {
+            return false;
+        }
+
+       
+        return isPalindrome(word, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
 
-        String word = "madam";
+        Scanner scanner = new Scanner(System.in);
 
-        
-        Node head = null;
-        Node tail = null;
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
 
-        for (int i = 0; i < word.length(); i++) {
-            Node newNode = new Node(word.charAt(i));
+        boolean result = isPalindrome(input, 0, input.length() - 1);
 
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
-
-        Node slow = head;
-        Node fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-        
-        Node prev = null;
-        Node current = slow;
-        Node nextNode;
-
-        while (current != null) {
-            nextNode = current.next;
-            current.next = prev;
-            prev = current;
-            current = nextNode;
-        }
-
-       
-        Node firstHalf = head;
-        Node secondHalf = prev;
-
-        boolean isPalindrome = true;
-
-        while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) {
-                isPalindrome = false;
-                break;
-            }
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
-        }
-
-        
-        if (isPalindrome) {
-            System.out.println("The word \"" + word + "\" is a Palindrome.");
+        if (result) {
+            System.out.println("Yes");
         } else {
-            System.out.println("The word \"" + word + "\" is NOT a Palindrome.");
+            System.out.println("No");
         }
+
+        scanner.close();
     }
 }
