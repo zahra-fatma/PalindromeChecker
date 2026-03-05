@@ -1,9 +1,18 @@
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
-       
-        System.out.println("  Welcome to Palindrome Checker  ");
-   
-        System.out.println("Version 1.0 - Application Started");
+
+        // Hardcoded string (String Literal)
+        String word = "madam";
+
+        // Reverse the string
+        String reversed = new StringBuilder(word).reverse().toString();
+
+        // Conditional check
+        if (word.equals(reversed)) {
+            System.out.println("The word \"" + word + "\" is a Palindrome.");
+        } else {
+            System.out.println("The word \"" + word + "\" is NOT a Palindrome.");
+        }
     }
 }
