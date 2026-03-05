@@ -1,30 +1,72 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 public class PalindromeCheckerApp {
+
+    
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
 
     public static void main(String[] args) {
 
         String word = "madam";
 
-        Deque<Character> deque = new ArrayDeque<>();
+        
+        Node head = null;
+        Node tail = null;
 
         for (int i = 0; i < word.length(); i++) {
-            deque.addLast(word.charAt(i));
-        }
+            Node newNode = new Node(word.charAt(i));
 
-        boolean isPalindrome = true;
-
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if (front != rear) {
-                isPalindrome = false;
-                break;
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
             }
         }
 
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        
+        Node prev = null;
+        Node current = slow;
+        Node nextNode;
+
+        while (current != null) {
+            nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+
+       
+        Node firstHalf = head;
+        Node secondHalf = prev;
+
+        boolean isPalindrome = true;
+
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                isPalindrome = false;
+                break;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        
         if (isPalindrome) {
             System.out.println("The word \"" + word + "\" is a Palindrome.");
         } else {
