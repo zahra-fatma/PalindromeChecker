@@ -58,7 +58,7 @@ public class PalindromeCheckerApp {
 
         System.out.println("\nExecution Time (nanoseconds)");
 
-        System.out.println("Reverse Method : " + (end1 - start1));
+        System.out.println("Reverse Method  : " + (end1 - start1));
         System.out.println("Stack Method   : " + (end2 - start2));
         System.out.println("Deque Method   : " + (end3 - start3));
 
